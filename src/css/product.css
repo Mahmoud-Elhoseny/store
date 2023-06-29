@@ -65,6 +65,11 @@ img {
   padding: 0;
 }
 
+@media (max-width: 600px) {
+  .card {
+    max-width: 86%;
+  }
+}
 .card_btn {
   border: none;
 }
@@ -148,13 +153,13 @@ img {
 }
 @media (max-width: 600px) {
   .input {
-    width: 41%;
+    width: 35%;
     height: 40px;
     position: absolute;
-    left: 76px;
+    left: 90px;
     transform: translateX(50%);
     border-radius: 10px;
-    padding-left: 1px;
+    padding-left: 5px;
     top: 18px;
   }
 }
@@ -200,4 +205,16 @@ img {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.added-to-cart-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: gray;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
 }

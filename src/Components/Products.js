@@ -10,14 +10,12 @@ import { AiOutlineHeart } from "react-icons/ai";
 const Products = ({ isLoading, product }) => {
     const [favorites, setFavorites] = useState([]);
     const [query, setQuery] = useState("");
-
+    const [addedToCart, setAddedToCart] = useState(false); // State to track if a product is added to the cart
 
     const handleChange = (e) => {
         const newQuery = e.target.value;
         setQuery(newQuery.toString().toLowerCase());
     }
-
-
 
     const { isLoggedIn } = useSelector((state) => state.auth)
     const dispatch = useDispatch()
@@ -25,7 +23,6 @@ const Products = ({ isLoading, product }) => {
     useEffect(() => {
         dispatch(fetchProducts())
     }, [dispatch])
-
 
     useEffect(() => {
         const localFavorites = localStorage.getItem('favoriteList');
@@ -48,6 +45,16 @@ const Products = ({ isLoading, product }) => {
         }
     }
 
+    const handleBuy = (product) => {
+        dispatch(buyItems({ items: product }));
+              setAddedToCart(true);
+
+    setTimeout(() => {
+      setAddedToCart(false);
+    }, 2000);
+          
+    }
+
     const newProducts = product?.length > 0 ? product.filter((el) => {
         if (query === "") {
             return el
@@ -55,7 +62,6 @@ const Products = ({ isLoading, product }) => {
             return el
         }
     })?.map((el) => (
-
         <li className="cards_item" key={el.id}>
             <div className="card">
                 <div className=" card_image">
@@ -66,11 +72,18 @@ const Products = ({ isLoading, product }) => {
                     <p className="card_text"><span className='bef'>Description:</span> {el?.description}</p>
                     <p className="card_text"><span className='bef'>Price:</span> {el?.price} $</p>
                     <div className='links'>
-                        <button variant="outline-primary" className="btn card_btn" onClick={() => dispatch(getProduct(el.id))}><Link className="detailsLink" to='/details' >Details</Link></button>
+                        <button variant="outline-primary" className="btn card_btn" onClick={() => dispatch(getProduct(el.id))}>
+                            <Link className="detailsLink" to='/details' >Details</Link>
+                        </button>
                         {isLoggedIn ?
-                            <button variant="outline-primary" className="btn card_btn"
-                                onClick={() => dispatch(buyItems({ items: el }))}>Buy</button>
-                            : <button variant="outline-primary" className="btn card_btn disabled-link" >Buy</button>}
+                            <button variant="outline-primary" className="btn card_btn" onClick={() => handleBuy(el)}>
+                                Buy
+                            </button>
+                            :
+                            <button variant="outline-primary" className="btn card_btn disabled-link" disabled>
+                                Buy
+                            </button>
+                        }
                         <button variant="outline-primary" className="btn card_btn" onClick={(event) => handleAddToFavorites(el, event)}>
                             <AiOutlineHeart />
                         </button>
@@ -82,19 +95,22 @@ const Products = ({ isLoading, product }) => {
 
     return (
         <Container>
-            <input className='input' type='text' placeholder='What are you looking for?'
-                onChange={handleChange} />
+            <input className='input' type='text' placeholder='Search' onChange={handleChange} />
             <h1>Most Popular Products</h1>
-            {
-                isLoading ? <div className="loading-container">
+            {isLoading ? (
+                <div className="loading-container">
                     <div className="loading-circle"></div>
-                </div> :
-                    <ul className="cards" >
-                        {newProducts}
-                    </ul>
-            }
+                </div>
+            ) : (
+                <>
+                    {addedToCart && (
+                                    <div className="added-to-cart-message">Product added to cart!</div>
+)}
+                    <ul className="cards">{newProducts}</ul>
+                </>
+            )}
         </Container>
     )
 }
 
-export default Products
+export default Products;
