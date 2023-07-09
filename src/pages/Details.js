@@ -13,7 +13,7 @@ const Details = ({ product, isLoading }) => {
           <li className="cards_item">
             <div className="card">
               <div className="card_image">
-                <img src={product?.image} alt='productImage' />
+                <img className='productImg' src={product?.image} alt='productImage' />
               </div>
               <div className="card_content">
                 <h3 className="card_title mb-2"><span className="span-desc">title:</span> {product?.title}</h3>

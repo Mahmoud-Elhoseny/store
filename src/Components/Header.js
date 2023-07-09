@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logIn } from '../store/authSlice';
 import { Table } from 'react-bootstrap';
-
+import logo from '../logo.png'
 const Header = ({ items, setAllItems }) => {
     const { isLoggedIn, Name } = useSelector((state) => state.auth)
 
@@ -29,7 +29,7 @@ const Header = ({ items, setAllItems }) => {
 
         <Navbar bg="light" expand="lg" className='shadow-sm p-3 mb-5 bg-white rounded'>
             <Container>
-                <Link to="/" className='logo'>Ecommerce</Link>
+                <Link to="/" > <img className='logo' src={logo} alt='logoImg' /> </Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto ">

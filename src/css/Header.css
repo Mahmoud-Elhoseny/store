@@ -12,13 +12,10 @@
 }
 
 .logo {
+  width: 73px;
   position: relative;
-  color: black;
-  text-decoration: none;
-  font-size: 25px;
-  font-style: italic;
   text-align: center;
-}
+  border-radius: 50%;}
 
 .btnCart {
   border: none;

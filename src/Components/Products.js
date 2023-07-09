@@ -65,11 +65,10 @@ const Products = ({ isLoading, product }) => {
         <li className="cards_item" key={el.id}>
             <div className="card">
                 <div className=" card_image">
-                    <img src={el?.image} alt='productImg' />
+                    <img className='productImg' src={el?.image} alt='productImg' />
                 </div>
                 <div className="card_content ">
                     <h2 className="card_title mb-2">{el?.title}</h2>
-                    <p className="card_text"><span className='bef'>Description:</span> {el?.description}</p>
                     <p className="card_text"><span className='bef'>Price:</span> {el?.price} $</p>
                     <div className='links'>
                         <button variant="outline-primary" className="btn card_btn" onClick={() => dispatch(getProduct(el.id))}>
